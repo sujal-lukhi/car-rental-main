@@ -78,7 +78,7 @@ const Footer = () => {
                     <ul className='mt-3 flex flex-col gap-1.5'>
                         <li>SAL Engineerng & Technical Institute</li>
                         <li>Ahmedabad,Gujrat</li>
-                        <li>+91 1234567890</li>
+                        <li>+91 7777777777 </li>
                         <li>221260116017setiit@gmail.com</li>
                     </ul>
                 </div>
