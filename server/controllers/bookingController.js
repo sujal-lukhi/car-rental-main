@@ -89,8 +89,8 @@ export const createBooking = async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.FRONTEND_URL}my-bookings`,
-      cancel_url: `${process.env.FRONTEND_URL}/payment-cancel/${booking._id}`,
+      success_url: `${process.env.CLIENT_URL}/booking-success`,
+      cancel_url: `${process.env.CLIENT_URL}/payment-cancel/${booking._id}`,
       metadata: {
         bookingId: booking._id.toString(),
       },
