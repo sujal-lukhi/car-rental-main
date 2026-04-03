@@ -1,11 +1,22 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { useAppContext } from '../context/AppContext';
 
 const BookingSuccess = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { axios } = useAppContext();
 
   useEffect(() => {
+    // Verify payment and update status locally
+    const bookingId = searchParams.get('bookingId');
+    if (bookingId) {
+      axios.post('/api/bookings/verify-payment', { bookingId })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
+    }
+
     // Play a success sound like "PhonePe" transaction notification
     // We use a high-quality positive notification chime
     const audio = new Audio("https://cdn.freesound.org/previews/511/511484_6890478-lq.mp3");
