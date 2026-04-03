@@ -21,8 +21,8 @@ const session = await stripe.checkout.sessions.create({
     },
   ],
 
-  success_url: "http://localhost:5173/payment-success",
-  cancel_url: "http://localhost:5173/payment-failed",
+  success_url: `${process.env.CLIENT_URL}/booking-success`,
+  cancel_url: `${process.env.CLIENT_URL}/booking-cancel`,
 
   metadata: {
     bookingId: booking._id.toString(),
