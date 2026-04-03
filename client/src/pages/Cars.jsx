@@ -64,7 +64,7 @@ const Cars = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
 
-      className='flex flex-col items-center py-20 bg-light max-md:px-4'>
+      className='flex flex-col items-center py-20 bg-zinc-900/40 border-b border-white/5 max-md:px-4'>
         <Title title='Available Cars' subTitle='Browse our selection of premium vehicles available for your next adventure'/>
 
         <motion.div
@@ -72,12 +72,12 @@ const Cars = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
 
-        className='flex items-center bg-white px-4 mt-6 max-w-140 w-full h-12 rounded-full shadow'>
-          <img src={assets.search_icon} alt="" className='w-4.5 h-4.5 mr-2'/>
+        className='flex items-center bg-white/5 backdrop-blur-xl border border-white/10 px-6 mt-8 max-w-140 w-full h-14 rounded-full shadow-lg focus-within:border-white/30 focus-within:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all'>
+          <img src={assets.search_icon} alt="" className='w-5 h-5 mr-3 invert opacity-50'/>
 
-          <input onChange={(e)=> setInput(e.target.value)} value={input} type="text" placeholder='Search by make, model, or features' className='w-full h-full outline-none text-gray-500'/>
+          <input onChange={(e)=> setInput(e.target.value)} value={input} type="text" placeholder='Search by make, model, or features' className='w-full h-full bg-transparent outline-none text-white font-medium placeholder-gray-500'/>
 
-          <img src={assets.filter_icon} alt="" className='w-4.5 h-4.5 ml-2'/>
+          <img src={assets.filter_icon} alt="" className='w-5 h-5 ml-3 invert opacity-50 cursor-pointer hover:opacity-100 transition-opacity'/>
         </motion.div>
       </motion.div>
 

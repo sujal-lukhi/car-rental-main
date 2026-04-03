@@ -2,13 +2,21 @@
 
 @import "tailwindcss";
 
-*{
+* {
   font-family: "Outfit", sans-serif;
 }
 
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
 @theme {
-  --color-primary: #2563EB;
-  --color-primary-dull: #1F58D8;
-  --color-light: #F1F5F9;
-  --color-borderColor: #c4c7d2;
+  --color-primary: #3b82f6;
+  --color-primary-dull: #2563eb;
+  --color-light: #1e293b;
+  --color-background: #0f172a;
+  --color-borderColor: #334155;
+  --color-text: #f8fafc;
+  --color-text-muted: #94a3b8;
 }

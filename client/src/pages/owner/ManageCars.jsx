@@ -61,14 +61,14 @@ const ManageCars = () => {
   },[isOwner])
 
   return (
-    <div className='px-4 pt-10 md:px-10 w-full'>
+    <div className='px-4 pt-10 md:px-10 w-full text-white'>
       
       <Title title="Manage Cars" subTitle="View all listed cars, update their details, or remove them from the booking platform."/>
 
-      <div className='max-w-3xl w-full rounded-md overflow-hidden border border-borderColor mt-6'>
+      <div className='max-w-3xl w-full rounded-md overflow-hidden border border-white/10 bg-white/5 backdrop-blur-md mt-6'>
 
-        <table className='w-full border-collapse text-left text-sm text-gray-600'>
-          <thead className='text-gray-500'>
+        <table className='w-full border-collapse text-left text-sm text-gray-300'>
+          <thead className='text-gray-400 border-b border-white/10 bg-white/5'>
             <tr>
               <th className="p-3 font-medium">Car</th>
               <th className="p-3 font-medium max-md:hidden">Category</th>
@@ -79,13 +79,13 @@ const ManageCars = () => {
           </thead>
           <tbody>
             {cars.map((car, index)=>(
-              <tr key={index} className='border-t border-borderColor'>
+              <tr key={index} className='border-t border-white/10'>
 
                 <td className='p-3 flex items-center gap-3'>
                   <img src={car.image} alt="" className="h-12 w-12 aspect-square rounded-md object-cover"/>
                   <div className='max-md:hidden'>
-                    <p className='font-medium'>{car.brand} {car.model}</p>
-                    <p className='text-xs text-gray-500'>{car.seating_capacity} • {car.transmission}</p>
+                    <p className='font-medium text-white'>{car.brand} {car.model}</p>
+                    <p className='text-xs text-gray-400'>{car.seating_capacity} • {car.transmission}</p>
                   </div>
                 </td>
 
@@ -93,16 +93,15 @@ const ManageCars = () => {
                 <td className='p-3'>{currency}{car.pricePerDay}/day</td>
 
                 <td className='p-3 max-md:hidden'>
-                  <span className={`px-3 py-1 rounded-full text-xs ${car.isAvaliable ? 'bg-green-100 text-green-500' : 'bg-red-100 text-red-500'}`}>
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${car.isAvaliable ? 'bg-white/10 text-white border border-white/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
                     {car.isAvaliable ? "Available" : "Unavailable" }
                   </span>
                 </td>
 
-                <td className='flex items-center p-3'>
+                <td className='flex items-center p-3 gap-3'>
+                  <img onClick={()=> toggleAvailability(car._id)} src={car.isAvaliable ? assets.eye_close_icon : assets.eye_icon} alt="" className='cursor-pointer invert opacity-70 hover:opacity-100 transition-opacity'/>
 
-                  <img onClick={()=> toggleAvailability(car._id)} src={car.isAvaliable ? assets.eye_close_icon : assets.eye_icon} alt="" className='cursor-pointer'/>
-
-                  <img onClick={()=> deleteCar(car._id)} src={assets.delete_icon} alt="" className='cursor-pointer'/>
+                  <img onClick={()=> deleteCar(car._id)} src={assets.delete_icon} alt="" className='cursor-pointer invert opacity-70 hover:opacity-100 transition-opacity'/>
                 </td>
 
               </tr>

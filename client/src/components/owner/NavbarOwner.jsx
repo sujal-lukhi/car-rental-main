@@ -8,11 +8,11 @@ const NavbarOwner = () => {
     const {user} = useAppContext()
 
   return (
-    <div className='flex items-center justify-between px-6 md:px-10 py-4 text-gray-500 border-b border-borderColor relative transition-all'>
+    <div className='flex items-center justify-between px-6 md:px-10 py-4 text-gray-400 border-b border-white/10 bg-white/5 backdrop-blur-md relative transition-all z-20'>
       <Link to='/'>
-        <h1 className='text-gray-900 xl:text-3xl'>Urban Mobility</h1>
+        <h1 className='text-white font-bold tracking-tight xl:text-3xl'>Smart Urban Mobility</h1>
       </Link>
-      <p>Welcome, {user?.name || "Owner"}</p>
+      <p className='text-white font-medium'>Welcome, {user?.name || "Owner"}</p>
     </div>
   )
 }
