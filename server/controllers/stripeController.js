@@ -4,6 +4,8 @@ const booking = await Booking.create({
   status: "PENDING",
 });
 
+const clientUrl = process.env.CLIENT_URL || process.env.FRONTEND_URL;
+
 const session = await stripe.checkout.sessions.create({
   payment_method_types: ["card"],
   mode: "payment",
@@ -21,8 +23,8 @@ const session = await stripe.checkout.sessions.create({
     },
   ],
 
-  success_url: `${process.env.CLIENT_URL}/booking-success`,
-  cancel_url: `${process.env.CLIENT_URL}/booking-cancel`,
+  success_url: `${clientUrl}/booking-success`,
+  cancel_url: `${clientUrl}/booking-cancel`,
 
   metadata: {
     bookingId: booking._id.toString(),
