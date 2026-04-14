@@ -38,63 +38,91 @@ const Hero = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
       style={{ perspective: 1200 }}
-      className='min-h-screen flex flex-col items-center justify-center gap-10 bg-background text-center pt-24 relative overflow-hidden z-0'
+      className='min-h-screen flex flex-col items-center justify-center gap-10 bg-[#0B0F19] text-center pt-28 pb-10 relative overflow-hidden z-0'
     >
-      {/* Subtle atmospheric lighting */}
-      <div className="absolute top-1/4 left-[10%] w-72 md:w-[500px] h-72 md:h-[500px] bg-white/5 rounded-full blur-[120px] -z-10" />
-      <div className="absolute bottom-1/4 right-[10%] w-72 md:w-[400px] h-72 md:h-[400px] bg-white/5 rounded-full blur-[100px] -z-10" />
+      {/* Intense atmospheric lighting */}
+      <div className="absolute top-[15%] left-[5%] w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-blue-500/10 rounded-full blur-[150px] -z-10 pointer-events-none" />
+      <div className="absolute bottom-1/4 right-[5%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-indigo-500/10 rounded-full blur-[150px] -z-10 pointer-events-none" />
 
       <motion.form
         initial={{ scale: 0.95, opacity: 0, y: 50 }}
         animate={{ scale: 1, opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.4 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
         onSubmit={handleSearch} 
-        className='flex flex-col md:flex-row items-start md:items-center justify-between p-6 w-[90%] md:w-full max-w-80 md:max-w-200 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] z-10'
+        className='flex flex-col md:flex-row items-center justify-between p-6 md:p-4 px-6 md:px-8 w-[95%] max-w-5xl bg-white/5 backdrop-blur-2xl border border-white/10 hover:border-white/20 transition-colors rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-10'
       >
-        <div className='flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10 min-md:ml-8 w-full'>
-            <div className='flex flex-col items-start gap-2 w-full'>
-                <p className='text-xs text-gray-400 mb-[-4px] font-medium uppercase tracking-wider'>Location</p>
-                <select required value={pickupLocation} onChange={(e)=>setPickupLocation(e.target.value)} className='bg-transparent border-b border-white/20 text-white font-semibold text-lg focus:outline-none focus:border-white pb-2 w-full appearance-none cursor-pointer transition-colors'>
-                    <option value="" className='bg-background text-gray-400 font-normal'>Select Location</option>
-                    {cityList.map((city)=> <option key={city} value={city} className='bg-background text-white font-normal'>{city}</option>)}
-                </select>
+        <div className='flex flex-col md:flex-row items-center w-full gap-5 md:gap-8'>
+            
+            <div className='flex items-center gap-4 w-full bg-white/5 md:bg-transparent p-4 md:p-0 rounded-2xl border border-white/5 md:border-none focus-within:bg-white/10 transition-colors'>
+                <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+                  <img src={assets.location_icon} alt="location" className="w-4 h-4 invert opacity-80" />
+                </div>
+                <div className='flex flex-col items-start w-full focus-within:text-white'>
+                    <select required value={pickupLocation} onChange={(e)=>setPickupLocation(e.target.value)} className='bg-transparent text-gray-200 font-semibold text-lg focus:outline-none w-full appearance-none cursor-pointer transition-colors'>
+                        <option value="" className='bg-[#0B0F19] text-gray-400 font-normal'>Any Location</option>
+                        {cityList.map((city)=> <option key={city} value={city} className='bg-[#0B0F19] text-white font-normal'>{city}</option>)}
+                    </select>
+                    <p className='text-[10px] text-blue-400 font-bold uppercase tracking-widest mt-1'>Pick-up Area</p>
+                </div>
             </div>
-            <div className='flex flex-col items-start gap-2 w-full'>
-                <label htmlFor='pickup-date' className='text-xs text-gray-400 mb-[-4px] font-medium uppercase tracking-wider'>Pick-up Date</label>
-                <input value={pickupDate} onChange={e=>setPickupDate(e.target.value)} type="date" id="pickup-date" min={new Date().toISOString().split('T')[0]} className='bg-transparent border-b border-white/20 text-white font-semibold text-lg focus:outline-none focus:border-white pb-2 w-full cursor-pointer transition-colors' required/>
+
+            <div className="hidden md:block w-[1px] h-12 bg-white/10"></div>
+
+            <div className='flex items-center gap-4 w-full bg-white/5 md:bg-transparent p-4 md:p-0 rounded-2xl border border-white/5 md:border-none focus-within:bg-white/10 transition-colors'>
+                 <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+                  <img src={assets.calendar_icon_colored} alt="date" className="w-4 h-4 invert grayscale opacity-80" />
+                </div>
+                <div className='flex flex-col items-start w-full relative'>
+                    <input value={pickupDate} onChange={e=>setPickupDate(e.target.value)} type="date" id="pickup-date" min={new Date().toISOString().split('T')[0]} className='bg-transparent text-gray-200 font-semibold text-lg focus:outline-none w-full cursor-pointer transition-colors' required/>
+                    <label htmlFor='pickup-date' className='text-[10px] text-blue-400 font-bold uppercase tracking-widest mt-1'>Pick-up Date</label>
+                </div>
             </div>
-            <div className='flex flex-col items-start gap-2 w-full'>
-                <label htmlFor='return-date' className='text-xs text-gray-400 mb-[-4px] font-medium uppercase tracking-wider'>Return Date</label>
-                <input value={returnDate} onChange={e=>setReturnDate(e.target.value)} type="date" id="return-date" className='bg-transparent border-b border-white/20 text-white font-semibold text-lg focus:outline-none focus:border-white pb-2 w-full cursor-pointer transition-colors' required/>
+
+            <div className="hidden md:block w-[1px] h-12 bg-white/10"></div>
+
+            <div className='flex items-center gap-4 w-full bg-white/5 md:bg-transparent p-4 md:p-0 rounded-2xl border border-white/5 md:border-none focus-within:bg-white/10 transition-colors'>
+                 <div className="w-10 h-10 rounded-full bg-indigo-500/20 flex items-center justify-center border border-indigo-500/30">
+                  <img src={assets.calendar_icon_colored} alt="date" className="w-4 h-4 invert grayscale opacity-80" />
+                </div>
+                <div className='flex flex-col items-start w-full relative'>
+                    <input value={returnDate} onChange={e=>setReturnDate(e.target.value)} type="date" id="return-date" className='bg-transparent text-gray-200 font-semibold text-lg focus:outline-none w-full cursor-pointer transition-colors' required/>
+                    <label htmlFor='return-date' className='text-[10px] text-indigo-400 font-bold uppercase tracking-widest mt-1'>Return Date</label>
+                </div>
             </div>
+            
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className='flex items-center justify-center gap-2 p-4 md:py-3.5 md:px-8 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-400 hover:to-indigo-400 text-white rounded-xl md:rounded-full cursor-pointer shadow-[0_0_20px_rgba(99,102,241,0.4)] transition-all font-bold tracking-wide w-full md:w-auto h-full'
+            >
+              <img src={assets.search_icon} alt="search" className='w-5 invert opacity-90'/>
+              <span>Search Vehicles</span>
+            </motion.button>
         </div>
-        <motion.button 
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className='flex items-center justify-center gap-2 px-8 py-3.5 max-sm:mt-8 bg-white hover:bg-gray-200 text-black rounded-full cursor-pointer shadow-md transition-colors font-bold tracking-wide md:min-w-[140px]'
-        >
-          <img src={assets.search_icon} alt="search" className='w-5 mix-blend-difference'/>
-          Search
-        </motion.button>
       </motion.form>
 
-      <motion.h1 
-        initial={{ y: 50, opacity: 0 }}
+      <motion.div 
+        initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2 }}
-        className='text-4xl md:text-6xl font-bold tracking-tight text-white mt-4 drop-shadow-md z-10 relative'
+        className='mt-6 z-10 relative flex flex-col items-center'
       >
-        Premium Fleet On-Demand
-      </motion.h1>
+        <div className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 mb-4 backdrop-blur-md">
+            <p className="text-xs font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400 uppercase">The Future of Rentals</p>
+        </div>
+        <h1 className='text-5xl md:text-7xl font-bold tracking-tight text-white drop-shadow-xl'>
+          Premium Fleet <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">On-Demand</span>
+        </h1>
+      </motion.div>
       
-      <div className="relative z-10 mt-6 flex flex-col items-center justify-center h-[300px] md:h-[450px] w-full">
+      <div className="relative z-10 mt-2 flex flex-col items-center justify-center h-[300px] md:h-[450px] w-full">
         {/* Continuously Swapping Rotating Car Images */}
         <AnimatePresence mode="wait">
             <motion.img
                 key={carIndex}
                 src={carImages[carIndex]} 
                 alt="3D Rotating Car" 
-                className='absolute max-h-[300px] md:max-h-[450px] object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.8)] w-auto pointer-events-none'
+                className='absolute max-h-[250px] md:max-h-[400px] object-contain drop-shadow-[0_35px_35px_rgba(0,0,0,0.8)] w-auto pointer-events-none'
                 initial={{ rotateY: -90, opacity: 0, scale: 0.9 }}
                 animate={{ rotateY: 0, opacity: 1, scale: 1 }}
                 exit={{ rotateY: 90, opacity: 0, scale: 0.9 }}
@@ -107,7 +135,7 @@ const Hero = () => {
         <motion.div 
             animate={{ scale: [1, 0.95, 1], opacity: [0.6, 0.4, 0.6] }}
             transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute bottom-0 w-[60%] md:w-[700px] h-[30px] bg-black/80 rounded-[100%] blur-xl pointer-events-none"
+            className="absolute bottom-6 md:bottom-10 w-[60%] md:w-[700px] h-[30px] bg-blue-900/60 rounded-[100%] blur-[30px] pointer-events-none"
             style={{ transform: "translateY(50px)" }}
         />
       </div>

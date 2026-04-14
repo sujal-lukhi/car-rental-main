@@ -4,7 +4,7 @@ const booking = await Booking.create({
   status: "PENDING",
 });
 
-const clientUrl = process.env.CLIENT_URL || process.env.FRONTEND_URL;
+const clientUrl = process.env.CLIENT_URL || process.env.FRONTEND_URL || 'http://localhost:5173';
 
 const session = await stripe.checkout.sessions.create({
   payment_method_types: ["card"],

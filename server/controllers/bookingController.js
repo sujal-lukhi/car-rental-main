@@ -74,6 +74,9 @@ export const createBooking = async (req, res) => {
     });
 
     // 2️⃣ Create Stripe Checkout Session
+    const clientUrlVal = process.env.CLIENT_URL || process.env.FRONTEND_URL || 'http://localhost:5173';
+    const baseUrl = clientUrlVal.endsWith('/') ? clientUrlVal : `${clientUrlVal}/`;
+
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -89,8 +92,8 @@ export const createBooking = async (req, res) => {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.FRONTEND_URL}booking-success?bookingId=${booking._id}`,
-      cancel_url: `${process.env.FRONTEND_URL}payment-cancel/${booking._id}`,
+      success_url: `${baseUrl}booking-success?bookingId=${booking._id}`,
+      cancel_url: `${baseUrl}payment-cancel/${booking._id}`,
       metadata: {
         bookingId: booking._id.toString(),
       },
