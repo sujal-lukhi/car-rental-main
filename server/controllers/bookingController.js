@@ -2,6 +2,7 @@ import Booking from "../models/Booking.js";
 import Car from "../models/Car.js";
 // import { stripe } from "../config/stripe.js";
 import { stripe } from "../configs/stripe.js";
+import { sendBookingConfirmationEmail } from "../utils/emailService.js";
 
 // Function to Check Availability of Car for a given Date
 const checkAvailability = async (car, pickupDate, returnDate) => {
@@ -166,7 +167,7 @@ export const changeBookingStatus = async (req, res) => {
 export const verifyPayment = async (req, res) => {
   try {
     const { bookingId } = req.body;
-    const booking = await Booking.findById(bookingId);
+    const booking = await Booking.findById(bookingId).populate("user").populate("car");
     if (!booking) {
       return res.json({ success: false, message: "Booking not found" });
     }
@@ -176,6 +177,19 @@ export const verifyPayment = async (req, res) => {
     if (booking.status === "pending") {
       booking.status = "confirmed";
       await booking.save();
+      
+      // Send booking confirmation email
+      if (booking.user && booking.user.email) {
+        const bookingDetails = {
+          carBrand: booking.car?.brand || "Your",
+          carModel: booking.car?.model || "Car",
+          pickupDate: booking.pickupDate,
+          returnDate: booking.returnDate,
+          price: booking.price
+        };
+        // Fire and forget so we don't block the response
+        sendBookingConfirmationEmail(booking.user.email, bookingDetails);
+      }
     }
     
     res.json({ success: true, message: "Payment verified", status: booking.status });
